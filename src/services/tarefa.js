@@ -1,18 +1,26 @@
+import Tarefa from "../models/tarefas.js";
+
 class TarefaServices {
-  static criar(titulo, descricao) {
-    
+  static async criar(titulo, descricao) {
+    const novaTarefa = await Tarefa.create({
+      titulo,
+      descricao
+    })
+    return novaTarefa
   }
 
-  static listarTodas() {
-    
+  static async listarTodas() {
+    const tarefas = await Tarefa.find()
+    return tarefas
   }
 
-  static atualizar(idTarefa, dados) {
-    
+  static async atualizar(idTarefa, dados) {
+    const tarefaAtualizada = await Tarefa.findByIdAndUpdate(idTarefa, {...dados, new: true}, { returnDocument: "after" })
+    return tarefaAtualizada
   }
 
-  static deletar(idTarefa) {
-    
+  static async deletar(idTarefa) {
+    await Tarefa.findByIdAndRemove(idTarefa)
   }
 }
 
