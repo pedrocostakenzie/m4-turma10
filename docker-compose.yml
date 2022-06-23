@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    command: npm run dev
+    ports:
+      - 3000:3000
+    environment:
+      - PG_PASSWORD=password
+      - PG_DB=db_name
+      - PG_USER=postgres
+      - PG_HOST=db
+      - SECRET=segredoApi
+      - NODE_ENV=local
+    volumes:
+      - .:/code,
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db_name
+    ports:
+      - 5432:5432
